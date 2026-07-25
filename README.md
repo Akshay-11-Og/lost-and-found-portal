@@ -1,2 +1,3 @@
 # lost-and-found-portal
-this is a miniproject of my college
+This is a miniproject of my college
+Team - Akshay chaudhari, Sujal dhumal, Atharv bhosale
