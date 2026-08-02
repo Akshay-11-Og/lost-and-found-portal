@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4">
+   <div className="min-h-screen flex items-start sm:items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 pt-8 sm:pt-4">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -119,8 +120,15 @@ export default function LoginPage() {
                 transition={{ delay: 0.3, duration: 0.4 }}
               >
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Logging in..." : "Log in"}
-                </Button>
+  {loading ? (
+    <>
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      Logging in...
+    </>
+  ) : (
+    "Log in"
+  )}
+</Button>
               </motion.div>
             </form>
 

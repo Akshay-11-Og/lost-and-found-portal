@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -55,7 +56,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4">
+    <div className="min-h-screen flex items-start sm:items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 pt-8 sm:pt-4">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -178,8 +179,15 @@ export default function RegisterPage() {
                 transition={{ delay: 0.38, duration: 0.4 }}
               >
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Creating account..." : "Sign up"}
-                </Button>
+  {loading ? (
+    <>
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      Creating account...
+    </>
+  ) : (
+    "Sign up"
+  )}
+</Button>
               </motion.div>
             </form>
             )}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Loader2, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,7 +39,38 @@ export default function ReportItemPage() {
   const [locationLost, setLocationLost] = useState("");
   const [dateLost, setDateLost] = useState("");
   const [loading, setLoading] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState("");
+  const [aiError, setAiError] = useState("");
+
+  async function handleSuggest() {
+    setAiError("");
+
+    if (!title && !description) {
+      setAiError("Type a title or a few notes first, then try AI suggest.");
+      return;
+    }
+
+    setAiLoading(true);
+
+    try {
+      const res = await fetch("/api/suggest-item", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, description }),
+      });
+
+      if (!res.ok) throw new Error("AI suggestion failed");
+
+      const data = await res.json();
+      setCategory(data.category);
+      setDescription(data.description);
+    } catch {
+      setAiError("Couldn't generate a suggestion right now. Try again in a moment.");
+    } finally {
+      setAiLoading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -82,7 +114,7 @@ export default function ReportItemPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 py-10">
+    <div className="min-h-screen flex items-start sm:items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 pt-8 sm:pt-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,7 +159,24 @@ export default function ReportItemPage() {
                 transition={{ delay: 0.18, duration: 0.4 }}
                 className="space-y-2"
               >
-                <Label htmlFor="description">Description</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="description">Description</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={aiLoading}
+                    onClick={handleSuggest}
+                    className="h-7 gap-1 text-xs"
+                  >
+                    {aiLoading ? (
+                      <Loader2 className="h-3 w-3 animate-spin" />
+                    ) : (
+                      <Sparkles className="h-3 w-3" />
+                    )}
+                    Suggest with AI
+                  </Button>
+                </div>
                 <Textarea
                   id="description"
                   placeholder="e.g. Left near the library entrance, has a laptop sleeve inside."
@@ -136,6 +185,7 @@ export default function ReportItemPage() {
                   required
                   rows={4}
                 />
+                {aiError && <p className="text-xs text-red-600">{aiError}</p>}
               </motion.div>
 
               <motion.div
@@ -207,7 +257,14 @@ export default function ReportItemPage() {
                 transition={{ delay: 0.42, duration: 0.4 }}
               >
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Submitting..." : "Report item"}
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    "Report item"
+                  )}
                 </Button>
               </motion.div>
             </form>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -112,6 +113,7 @@ export function ClaimSection({
               {claim.status === "PENDING" ? (
                 <div className="flex gap-2">
                   <Button size="sm" disabled={loading} onClick={() => handleDecision(claim.id, true)}>
+                    {loading && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
                     Approve
                   </Button>
                   <Button
@@ -120,6 +122,7 @@ export function ClaimSection({
                     disabled={loading}
                     onClick={() => handleDecision(claim.id, false)}
                   >
+                    {loading && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
                     Reject
                   </Button>
                 </div>
@@ -172,6 +175,7 @@ export function ClaimSection({
           />
           {error && <p className="text-sm text-red-600">{error}</p>}
           <Button type="submit" disabled={loading}>
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {loading ? "Submitting..." : "Submit claim"}
           </Button>
         </form>
