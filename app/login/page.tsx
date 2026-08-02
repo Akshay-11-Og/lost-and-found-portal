@@ -139,9 +139,9 @@ export default function LoginPage() {
               className="mt-6 text-center text-sm text-slate-500"
             >
               Don&apos;t have an account?{" "}
-              <Link href="/Register" className="font-medium text-slate-900 hover:underline">
-                Sign up
-              </Link>
+              <Link href="/register" className="font-medium text-slate-900 hover:underline">
+  Sign up
+</Link>
             </motion.p>
           </CardContent>
         </Card>
