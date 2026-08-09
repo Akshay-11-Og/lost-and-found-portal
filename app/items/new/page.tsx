@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
@@ -38,10 +38,13 @@ export default function ReportItemPage() {
   const [category, setCategory] = useState("");
   const [locationLost, setLocationLost] = useState("");
   const [dateLost, setDateLost] = useState("");
+  const [contactInfo, setContactInfo] = useState(""); 
+  const [contactPhone, setContactPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
   const [error, setError] = useState("");
   const [aiError, setAiError] = useState("");
+  useEffect(() => { supabase.auth.getUser().then(({ data: { user } }) => { if (user?.email) setContactInfo(user.email); }); }, []); 
 
   async function handleSuggest() {
     setAiError("");
@@ -101,6 +104,8 @@ export default function ReportItemPage() {
       date_lost: dateLost,
       reported_by_id: user.id,
       reported_by_name: user.user_metadata?.full_name ?? user.email,
+      contact_info: contactInfo,
+      contact_phone: contactPhone || null,
     });
 
     if (insertError) {
@@ -240,7 +245,39 @@ export default function ReportItemPage() {
                   required
                 />
               </motion.div>
-
+<motion.div
+  initial={{ opacity: 0, x: -12 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.39, duration: 0.4 }}
+  className="space-y-2"
+>
+  <Label htmlFor="contactInfo">Contact info</Label>
+  <Input
+    id="contactInfo"
+    placeholder="e.g. your phone number or email"
+    value={contactInfo}
+    onChange={(e) => setContactInfo(e.target.value)}
+    required
+  />
+  <p className="text-xs text-muted-foreground">
+    Shown only to someone whose claim you approve, so they can reach you.
+  </p>
+</motion.div>
+                    <motion.div
+  initial={{ opacity: 0, x: -12 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.4, duration: 0.4 }}
+  className="space-y-2"
+>
+  <Label htmlFor="contactPhone">Phone number (optional)</Label>
+  <Input
+    id="contactPhone"
+    type="tel"
+    placeholder="e.g. 98765 43210"
+    value={contactPhone}
+    onChange={(e) => setContactPhone(e.target.value)}
+  />
+</motion.div>
               {error && (
                 <motion.p
                   initial={{ opacity: 0, height: 0 }}

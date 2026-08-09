@@ -30,6 +30,7 @@ export function ClaimSection({
   isOwner: boolean;
   currentUserId: string | null;
   claims: Claim[];
+  contactInfo?: string;
 }) {
   const router = useRouter();
   const supabase = createClient();
@@ -148,12 +149,22 @@ export function ClaimSection({
     );
   }
 
-  if (myClaim) {
+ if (myClaim) {
     return (
       <Card>
-        <CardContent className="pt-6 text-sm">
-          You&apos;ve already submitted a claim for this item. Status:{" "}
-          <span className="font-medium">{myClaim.status}</span>
+        <CardContent className="pt-6 text-sm space-y-2">
+          <p>
+            You&apos;ve already submitted a claim for this item. Status:{" "}
+            <span className="font-medium">{myClaim.status}</span>
+          </p>
+          {myClaim.status === "APPROVED" && contactInfo && (
+            <div className="rounded-md border bg-green-50 p-3">
+              <p className="font-medium text-green-800">
+                Your claim was approved! Reach out to arrange pickup:
+              </p>
+              <p className="text-green-900">{contactInfo}</p>
+            </div>
+          )}
         </CardContent>
       </Card>
     );

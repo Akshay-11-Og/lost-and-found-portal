@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
-import { getItem, getCurrentUser } from "@/lib/api";
+import { getItem, getCurrentUser, getCurrentUserProfile } from "@/lib/api";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { statusStyles, statusLabels } from "@/lib/status-styles";
 import { ClaimSection } from "./claim-section";
+import { DeleteItemButton } from "@/components/delete-item-button";
 
 export default async function ItemDetailPage({
   params,
@@ -13,6 +14,8 @@ export default async function ItemDetailPage({
   const { id } = await params;
   const item = await getItem(id);
   const currentUser = await getCurrentUser();
+  const profile = await getCurrentUserProfile();
+  const isAdmin = profile?.role === "ADMIN";
 
   if (!item) notFound();
 
@@ -32,6 +35,7 @@ export default async function ItemDetailPage({
           <p>📍 {item.locationLost}</p>
           <p>📅 Lost on {new Date(item.dateLost).toLocaleDateString()}</p>
           <p>👤 Reported by {item.reportedBy.name}</p>
+          {isAdmin && ( <div className="pt-2"> <DeleteItemButton itemId={item.id} /> </div> )}
         </CardContent>
       </Card>
 
@@ -41,6 +45,7 @@ export default async function ItemDetailPage({
         isOwner={isOwner}
         currentUserId={currentUser?.id ?? null}
         claims={item.claims}
+        contactInfo={item.contactInfo}
       />
     </div>
   );

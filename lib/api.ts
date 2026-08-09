@@ -17,6 +17,8 @@ function mapItemRow(row: any) {
     dateLost: row.date_lost,
     status: row.status,
     reportedBy: { id: row.reported_by_id, name: row.reported_by_name },
+    contactInfo: row.contact_info,
+    contactPhone: row.contact_phone,
     createdAt: row.created_at,
   };
 }

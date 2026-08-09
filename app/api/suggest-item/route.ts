@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+   const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
     const prompt = `You are helping a student fill out a "lost item" report form on a campus lost-and-found app.
 
@@ -53,7 +53,10 @@ Example output: {"category": "Bag", "description": "A black backpack with a lapt
 
     return NextResponse.json(parsed);
   } catch (error) {
-    console.error("AI suggestion error:", error);
+   console.error("AI suggestion error:", error);
+if (error instanceof Error) {
+  console.error("Message:", error.message);
+}
     return NextResponse.json(
       { error: "Failed to generate suggestion" },
       { status: 500 }

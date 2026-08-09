@@ -20,7 +20,7 @@ export async function Navbar() {
 
   return (
     <nav className="border-b bg-white">
-      <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="flex w-full flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <Link href="/dashboard" className="font-bold">
           Lost &amp; Found
         </Link>
