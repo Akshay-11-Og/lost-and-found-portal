@@ -51,19 +51,19 @@ export function ItemGrid({
         return (
           <motion.div key={it.id} variants={item}>
             <Link href={`/items/${it.id}`}>
-              <Card className="h-full transition hover:shadow-md hover:-translate-y-0.5">
+              <Card className="h-full rounded-2xl border-white/10 bg-[#1a1a1d] transition hover:-translate-y-1 hover:border-white/20">
                 <CardHeader className="flex flex-row items-start justify-between gap-2">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${style.bg}`}
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${style.bg}`}
                     >
                       <CategoryIcon className={`h-5 w-5 ${style.text}`} />
                     </div>
-                    <CardTitle className="text-base leading-tight">
+                    <CardTitle className="text-base leading-tight text-white">
                       {it.title}
                     </CardTitle>
                   </div>
-                  <Badge variant="outline" className={statusStyles[it.status]}>
+                  <Badge variant="outline" className={`rounded-full ${statusStyles[it.status]}`}>
                     {statusLabels[it.status]}
                   </Badge>
                 </CardHeader>

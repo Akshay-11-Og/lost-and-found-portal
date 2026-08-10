@@ -1,8 +1,7 @@
-
 export const statusStyles: Record<string, string> = {
-  OPEN: "bg-blue-100 text-blue-700 border-blue-200",
-  CLAIM_PENDING: "bg-amber-100 text-amber-700 border-amber-200",
-  RETURNED: "bg-green-100 text-green-700 border-green-200",
+  OPEN: "bg-[#7f77dd]/20 text-[#b3aef0] border-transparent",
+  CLAIM_PENDING: "bg-[#eab308]/20 text-[#eab308] border-transparent",
+  RETURNED: "bg-[#1d9e75]/20 text-[#4ade9a] border-transparent",
 };
 
 export const statusLabels: Record<string, string> = {

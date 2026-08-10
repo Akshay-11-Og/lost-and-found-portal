@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 export function DashboardHero({
   userName,
@@ -15,43 +16,70 @@ export function DashboardHero({
   pending: number;
   returned: number;
 }) {
-  const stats = [
-    { label: "Total reported", value: total, bg: "bg-slate-900", text: "text-white" },
-    { label: "Still open", value: open, bg: "bg-blue-100", text: "text-blue-700" },
-    { label: "Claim pending", value: pending, bg: "bg-amber-100", text: "text-amber-700" },
-    { label: "Returned", value: returned, bg: "bg-emerald-100", text: "text-emerald-700" },
-  ];
-
   return (
-    <div className="mb-8">
-      <motion.h1
+    <div className="mb-10">
+      <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="text-3xl font-bold tracking-tight"
+        className="mb-1 flex items-center gap-2"
       >
-        Welcome back,{" "}
-        <span className="bg-gradient-to-r from-indigo-600 to-sky-500 bg-clip-text text-transparent">
-          {userName}
-        </span>
-      </motion.h1>
-      <p className="mt-1 text-muted-foreground">
-        Here&apos;s what&apos;s happening with lost items on campus.
+        <h1 className="text-3xl font-medium tracking-tight text-white">
+          hey {userName} <span className="inline-block">👋</span>
+        </h1>
+      </motion.div>
+      <p className="mb-6 text-sm text-zinc-400">
+        {total === 0
+          ? "nothing reported yet — be the first."
+          : `${total} thing${total === 1 ? "" : "s"} reported. here's the state of campus lost & found.`}
       </p>
 
-      <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {stats.map((s, i) => (
-          <motion.div
-            key={s.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + i * 0.08, duration: 0.35 }}
-            className={`rounded-xl p-4 ${s.bg}`}
-          >
-            <p className={`text-2xl font-bold ${s.text}`}>{s.value}</p>
-            <p className={`text-xs font-medium ${s.text} opacity-80`}>{s.label}</p>
-          </motion.div>
-        ))}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:grid-rows-2">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05, duration: 0.35 }}
+          whileHover={{ y: -3 }}
+          className="col-span-2 row-span-2 flex flex-col justify-between rounded-2xl bg-[#1d9e75] p-5"
+        >
+          <span className="flex items-center gap-1 text-xs font-medium text-[#e1f5ee]">
+            <Sparkles className="h-3.5 w-3.5" /> RETURNED
+          </span>
+          <span className="text-5xl font-medium text-white">{returned}</span>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.13, duration: 0.35 }}
+          whileHover={{ y: -3 }}
+          className="rounded-2xl bg-[#1a1a1d] p-4"
+        >
+          <p className="text-2xl font-medium text-white">{total}</p>
+          <p className="mt-0.5 text-xs text-zinc-500">total</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.19, duration: 0.35 }}
+          whileHover={{ y: -3 }}
+          className="rounded-2xl bg-[#1a1a1d] p-4"
+        >
+          <p className="text-2xl font-medium text-white">{open}</p>
+          <p className="mt-0.5 text-xs text-zinc-500">still open</p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.35 }}
+          whileHover={{ y: -3 }}
+          className="col-span-2 rounded-2xl bg-[#eab308]/90 p-4"
+        >
+          <p className="text-2xl font-medium text-[#241c00]">{pending}</p>
+          <p className="mt-0.5 text-xs text-[#4a3b03]">claim pending</p>
+        </motion.div>
       </div>
     </div>
   );

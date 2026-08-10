@@ -17,14 +17,14 @@ type CategoryStyle = {
 };
 
 export const categoryStyles: Record<string, CategoryStyle> = {
-  Bag: { icon: Backpack, bg: "bg-amber-100", text: "text-amber-700" },
-  Bottle: { icon: GlassWater, bg: "bg-sky-100", text: "text-sky-700" },
-  "ID Card": { icon: IdCard, bg: "bg-violet-100", text: "text-violet-700" },
-  Electronics: { icon: Cpu, bg: "bg-indigo-100", text: "text-indigo-700" },
-  Documents: { icon: FileText, bg: "bg-slate-200", text: "text-slate-700" },
-  Keys: { icon: Key, bg: "bg-orange-100", text: "text-orange-700" },
-  Clothing: { icon: Shirt, bg: "bg-pink-100", text: "text-pink-700" },
-  Other: { icon: Package, bg: "bg-gray-200", text: "text-gray-700" },
+  Bag: { icon: Backpack, bg: "bg-[#eab308]/20", text: "text-[#eab308]" },
+  Bottle: { icon: GlassWater, bg: "bg-[#38bdf8]/20", text: "text-[#38bdf8]" },
+  "ID Card": { icon: IdCard, bg: "bg-[#7f77dd]/20", text: "text-[#a89ff0]" },
+  Electronics: { icon: Cpu, bg: "bg-[#818cf8]/20", text: "text-[#a5b4fc]" },
+  Documents: { icon: FileText, bg: "bg-zinc-500/20", text: "text-zinc-300" },
+  Keys: { icon: Key, bg: "bg-[#f0997b]/20", text: "text-[#f0997b]" },
+  Clothing: { icon: Shirt, bg: "bg-[#d4537e]/20", text: "text-[#e88bab]" },
+  Other: { icon: Package, bg: "bg-zinc-500/20", text: "text-zinc-400" },
 };
 
 export function getCategoryStyle(category: string): CategoryStyle {
