@@ -119,7 +119,7 @@ export default function ReportItemPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-start sm:items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-4 pt-8 sm:pt-4 py-10">
+    <div className="min-h-screen flex items-start sm:items-center justify-center px-4 pt-8 sm:pt-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
