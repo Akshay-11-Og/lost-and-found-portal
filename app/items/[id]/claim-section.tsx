@@ -24,6 +24,7 @@ export function ClaimSection({
   isOwner,
   currentUserId,
   claims,
+  contactInfo,
 }: {
   itemId: string;
   itemStatus: string;
